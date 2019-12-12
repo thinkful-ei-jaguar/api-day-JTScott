@@ -9,6 +9,8 @@ import shoppingList from './shopping-list';
 import store from './store';
 
 const main = function () {
+    .then(res => res.json())
+    .then(() => console.log('updated!'));
   api.getItems()
     .then(res => res.json())
     .then((items) => {
