@@ -54,13 +54,13 @@ const handleNewItemSubmit = function () {
     api.createItem(newItemName)
       .then(res => res.json())
       .then(newItem => {  
-      console.log(newItem);
+        console.log(newItem);
         store.addItem(newItem);
         render();
       })
       .catch(err => {
-       // store.setError(err.message);
-       console.log(err)
+        // store.setError(err.message);
+        console.log(err)
         render();
       });
     store.addItem(newItemName);
@@ -92,6 +92,14 @@ const handleEditShoppingItemSubmit = function () {
     const id = getItemIdFromElement(event.currentTarget);
     const itemName = $(event.currentTarget).find('.shopping-item').val();
     store.findAndUpdateName(id, itemName);
+    
+    api.updateItem(id, itemName) 
+      .then(res => res.json())
+      .then((updatedItem) => {
+        store.findAndUpdate(updatedItem);
+        render();
+      });
+
     render();
   });
 };
