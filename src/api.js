@@ -8,17 +8,17 @@ const getItems = function() {
 };
 
 const createItem = function(name) {
-let newItem = JSON.stringify({
+  let newItem = JSON.stringify({
     'name': name,
-});
+  });
 
-return fetch(`${BASE_URL}/items`,{
+  return fetch(`${BASE_URL}/items`,{
     method: 'POST',
     headers: {
-        'Content-Type': 'application/json'
+      'Content-Type': 'application/json'
     },
     body: newItem
-})
+  });
 };
 
 
@@ -26,6 +26,6 @@ return fetch(`${BASE_URL}/items`,{
 
 
 export default {
-    getItems,
-    createItem
+  getItems,
+  createItem
 };
