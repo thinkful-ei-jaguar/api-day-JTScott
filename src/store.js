@@ -1,17 +1,13 @@
+  
 const items = [];
 let hideCheckeditems = false;
 
 const findById = function (id) {
-  return items.find(currentItem => currentItem.id === id);
+  return this.items.find(currentItem => currentItem.id === id);
 };
 
-const addItem = function(item) {
+const addItem = function (item) {
   this.items.push(item);
-};
-
-const findAndUpdate = function(id, newData) {
-  let foundItem = findById(id);
-  Object.assign(foundItem, newData);
 };
 
 const findAndDelete = function (id) {
@@ -22,12 +18,18 @@ const toggleCheckedFilter = function () {
   this.hideCheckedItems = !this.hideCheckedItems;
 };
 
+const findAndUpdate = function (id, newData) {
+  const currentItem = this.findById(id);
+  Object.assign(currentItem, newData);
+};
+
+
 export default {
   items,
   hideCheckeditems,
   findById,
   addItem,
-  findAndUpdate,
   findAndDelete,
-  toggleCheckedFilter
+  toggleCheckedFilter,
+  findAndUpdate
 };

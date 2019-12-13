@@ -2,6 +2,7 @@ import $ from 'jquery';
 
 import store from './store';
 import api from './api';
+
 const generateItemElement = function (item) {
   let itemTitle = `<span class="shopping-item shopping-item__checked">${item.name}</span>`;
   if (!item.checked) {
@@ -53,18 +54,15 @@ const handleNewItemSubmit = function () {
     
     api.createItem(newItemName)
       .then(res => res.json())
-      .then(newItem => {  
-        console.log(newItem);
+      .then((newItem) => {  
         store.addItem(newItem);
         render();
       })
       .catch(err => {
         // store.setError(err.message);
-        console.log(err)
+        console.log(err);
         render();
       });
-    store.addItem(newItemName);
-    render();
   });
 };
 
@@ -90,11 +88,9 @@ const handleEditShoppingItemSubmit = function () {
     event.preventDefault();
     const id = getItemIdFromElement(event.currentTarget);
     const itemName = $(event.currentTarget).find('.shopping-item').val();
-    
-    api.updateItem(id, itemName) 
-      .then(res => res.json())
-      .then((updatedItem) => {
-        store.findAndUpdate(id, updatedItem);
+    api.updateItem(id, { name: itemName })
+      .then(() => {
+        store.findAndUpdate(id, { name: itemName });
         render();
       });
   });
@@ -106,7 +102,7 @@ const handleItemCheckClicked = function () {
     const item = store.findById(id);
 
     api.updateItem(id, { checked: !item.checked })
-      .then(function() {
+      .then(() => {
         store.findAndUpdate(id, { checked: !item.checked });
         render();
       });
